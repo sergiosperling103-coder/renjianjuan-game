@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人间卷 · 一生传记</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ink-bg" aria-hidden="true">
+    <div class="ink-mountain"></div>
+    <div class="ink-mist"></div>
+  </div>
+
+  <!-- 序章 -->
+  <section id="screen-intro" class="screen">
+    <div class="intro-inner">
+      <div class="seal">人间卷</div>
+      <h1 class="intro-title">一生传记</h1>
+      <p class="intro-sub">一部长篇传记的生成式叙事，由你执笔，也由你亲历。</p>
+      <p id="intro-wish" class="intro-text hidden"></p>
+      <p class="intro-text">
+        从第一声啼哭到最后一息落墨，爱情、友情、亲情与事业四道金线交织、撕扯、共振，织就独属于你的人间图景。
+        每一次选择都是对未来的开刃，每一次相遇都可能是最后的告别。系统不保证圆满，只保证真实；不承诺幸福，只承诺——每一刻都有重量。
+      </p>
+      <div id="continue-wrap" class="hidden">
+        <button class="btn-ghost" id="btn-continue">继续前尘 · 读取存档</button>
+      </div>
+      <button class="btn-primary" id="btn-begin">落笔 · 开始这一生</button>
+      <p class="intro-foot">第一章 · 命运的原点</p>
+    </div>
+  </section>
+
+  <!-- 第一章：设定向导 -->
+  <section id="screen-create" class="screen hidden">
+    <div class="wizard">
+      <div class="wizard-head">
+        <div class="wizard-title">第一章 · 命运的原点</div>
+        <div class="wizard-progress"><span id="step-now">1</span> / 4</div>
+      </div>
+
+      <!-- 第1步：姓名与性别 -->
+      <div class="wizard-step" data-step="1">
+        <h2>1.1 你之名，你之印</h2>
+        <p class="step-desc">此名将跟随你一生，出现在每一封信、每一张证件、每一个呼唤你的唇齿之间。可亲手题写，也可抽取一枚时代之名。</p>
+        <div class="gender-row">
+          <button class="choice-card" data-gender="男">
+            <span class="card-mark">乾</span>
+            <span>男</span>
+          </button>
+          <button class="choice-card" data-gender="女">
+            <span class="card-mark">坤</span>
+            <span>女</span>
+          </button>
+        </div>
+        <div class="input-row">
+          <input id="inp-name" type="text" maxlength="6" placeholder="写下你的姓名" autocomplete="off">
+          <button class="btn-ghost small" id="btn-suggest-name" type="button">抽取时代之名</button>
+        </div>
+        <div id="name-suggest" class="chips"></div>
+      </div>
+
+      <!-- 第2步：生辰 -->
+      <div class="wizard-step hidden" data-step="2">
+        <h2>1.2 时间的刻痕</h2>
+        <p class="step-desc">选择出生年月日，精确到日。时代的经济起伏、制度变迁与文化思潮，将自这一日起成为你命运的体温。</p>
+        <div class="date-row">
+          <select id="sel-year"></select>
+          <select id="sel-month"></select>
+          <select id="sel-day"></select>
+        </div>
+        <p class="date-hint" id="date-hint">同一年的十八岁，不同年份是全然不同的世界入口。</p>
+      </div>
+
+      <!-- 第3步：水土 -->
+      <div class="wizard-step hidden" data-step="3">
+        <h2>1.3 水土的基因</h2>
+        <p class="step-desc">这个坐标沉淀为产业基因、资源禀赋与文化氛围。此后每次升学、远行与迁徙，都是连根拔起，逼迫你完成名为「适应」的成人礼。</p>
+        <div id="geo-grid" class="geo-grid"></div>
+        <div class="input-row">
+          <input id="inp-place" type="text" maxlength="24" placeholder="或写下你的故乡（城市/县镇）" autocomplete="off">
+          <button class="btn-ghost small" id="btn-geo-ok" type="button">确认</button>
+        </div>
+        <p class="geo-flavor hidden" id="geo-flavor"></p>
+      </div>
+
+      <!-- 第4步：屋檐 -->
+      <div class="wizard-step hidden" data-step="4">
+        <h2>1.4 最初的屋檐</h2>
+        <p class="step-desc">家是三重资本构筑的最初世界——经济宽裕或拮据、文化滋养或贫瘠、社会人脉或孤立。请择定你最初的屋檐。</p>
+        <div class="sub-group">
+          <div class="sub-label">父亲的职业</div>
+          <div class="chip-row" id="job-father"></div>
+        </div>
+        <div class="sub-group">
+          <div class="sub-label">母亲的职业</div>
+          <div class="chip-row" id="job-mother"></div>
+        </div>
+        <div class="sub-group">
+          <div class="sub-label">家底</div>
+          <div class="chip-row" id="econ"></div>
+        </div>
+        <div class="sub-group">
+          <div class="sub-label">家庭结构</div>
+          <div class="chip-row" id="family-type"></div>
+        </div>
+        <div class="sub-group">
+          <div class="sub-label">童年基调</div>
+          <div class="chip-row" id="tone"></div>
+        </div>
+      </div>
+
+      <div class="wizard-nav">
+        <button class="btn-ghost" id="btn-prev">上一问</button>
+        <button class="btn-primary" id="btn-next">下一问</button>
+        <button class="btn-primary hidden" id="btn-submit">铸模 · 命运的初印</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第二章：灵魂初选 -->
+  <section id="screen-soul" class="screen hidden">
+    <div class="soul-wrap">
+      <h2>第二章 · 灵魂的质地</h2>
+      <p class="step-desc">岁月将在此基底上雕琢或涂抹，系统无权预先宣告。你的抉择仅供参考——请为命运长卷亲手涂上第一层底色。</p>
+      <div id="soul-cards" class="soul-cards"></div>
+    </div>
+  </section>
+
+  <!-- 天赋抽卡与初始点数 -->
+  <section id="screen-talent" class="screen hidden">
+    <div class="talent-wrap">
+      <h2>天赋 · 命运发牌</h2>
+      <p class="step-desc">人生而不平等。命运先发你十张牌，你只能带两张入世——它们将影响属性的起点，也会在某些路口替你开门。</p>
+      <div id="wish-line" class="wish-line hidden"></div>
+      <div id="talent-grid" class="talent-grid"></div>
+      <div class="talent-foot">
+        <span id="talent-count" class="talent-count">已选 0 / 2</span>
+        <button class="btn-primary" id="btn-talent-done" disabled>携此天赋，分配初始</button>
+      </div>
+
+      <div id="attr-step" class="attr-step hidden">
+        <div class="attr-divider"></div>
+        <h3>三枚初始点数</h3>
+        <p class="step-desc">你还有三次落笔的机会，为初始的七项属性各添一笔（每项至多加三点）。</p>
+        <div id="attr-rows" class="attr-rows"></div>
+        <div class="talent-foot">
+          <span id="attr-left" class="talent-count">余 3 点</span>
+          <button class="btn-primary" id="btn-attr-done" disabled>落笔 · 开始这一生</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主线叙事 -->
+  <section id="screen-main" class="screen hidden">
+    <aside id="sidebar">
+      <div class="side-head">
+        <div class="avatar" id="avatar">名</div>
+        <div>
+          <div class="side-name" id="side-name">未名</div>
+          <div class="side-age" id="side-age">—岁 · 未知之地</div>
+        </div>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-row"><span>爱情</span><div class="bar"><i data-stat="love"></i></div></div>
+        <div class="stat-row"><span>友情</span><div class="bar"><i data-stat="friend"></i></div></div>
+        <div class="stat-row"><span>亲情</span><div class="bar"><i data-stat="family"></i></div></div>
+        <div class="stat-row"><span>事业</span><div class="bar"><i data-stat="career"></i></div></div>
+        <div class="stat-row dim"><span>健康</span><div class="bar"><i data-stat="health"></i></div></div>
+        <div class="stat-row dim"><span>家底</span><div class="bar"><i data-stat="wealth"></i></div></div>
+        <div class="stat-row dim"><span>心智</span><div class="bar"><i data-stat="mind"></i></div></div>
+        <div class="stat-row dim"><span>心境</span><div class="bar"><i data-stat="mood"></i></div></div>
+        <div class="stat-row dim"><span>气运</span><div class="bar"><i data-stat="luck"></i></div></div>
+        <div class="stat-row dim"><span>洞察</span><div class="bar"><i data-stat="discern"></i></div></div>
+        <div class="stat-row dim"><span>守心</span><div class="bar"><i data-stat="integrity"></i></div></div>
+      </div>
+
+      <div class="side-section">
+        <div class="side-label">亲人</div>
+        <div id="side-family" class="side-family"></div>
+      </div>
+
+      <div class="side-section">
+        <div class="side-label">命运的烙印</div>
+        <div id="side-flags" class="chips"></div>
+      </div>
+
+      <div class="side-section">
+        <div class="side-label">与生俱来 · 天赋</div>
+        <div id="side-talents" class="chips"></div>
+      </div>
+
+        <div class="side-actions">
+          <div class="pace-row">
+            <span>流速</span>
+            <button class="pace-btn active" data-pace="year">年</button>
+            <button class="pace-btn" data-pace="month">月</button>
+            <button class="pace-btn" data-pace="day">日</button>
+          </div>
+          <button class="btn-ghost small" id="btn-settings">设置 · 尘世之物</button>
+          <button class="btn-ghost small" id="btn-rewind" disabled>回溯 · 与命运讨价还价</button>
+          <button class="btn-ghost small" id="btn-archive">命运档案</button>
+          <button class="btn-ghost small" id="btn-save">存档</button>
+        <button class="btn-ghost small" id="btn-restart">重来</button>
+      </div>
+    </aside>
+
+    <main id="stage">
+      <div id="event-card" class="event-card">
+        <div class="event-meta" id="event-meta"></div>
+        <h2 class="event-title" id="event-title"></h2>
+        <div class="event-body" id="event-body"></div>
+        <div class="result-card hidden" id="event-result"></div>
+        <div class="choices" id="choices"></div>
+        <div class="custom-row hidden" id="custom-row">
+          <textarea id="inp-custom" rows="2" maxlength="120" placeholder="若选项皆非你心，可跳出选项，以你自己的话作答……"></textarea>
+          <button class="btn-ghost small" id="btn-custom" type="button">以我之言作答</button>
+        </div>
+        <div class="continue-row hidden" id="continue-row">
+          <button class="btn-primary" id="btn-continue-event">岁月继续</button>
+        </div>
+      </div>
+      <div class="stage-foot">
+        <span id="foot-date"></span>
+        <span id="foot-flag"></span>
+      </div>
+    </main>
+  </section>
+
+  <!-- 终章 -->
+  <section id="screen-ending" class="screen hidden">
+    <div class="ending-wrap" id="ending-wrap"></div>
+  </section>
+
+  <!-- 平行命运弹层 -->
+  <div class="modal hidden" id="modal-parallel">
+    <div class="modal-card">
+      <div class="modal-tag">旁白 · 差之毫厘</div>
+      <p id="parallel-text"></p>
+      <button class="btn-primary" id="btn-parallel-close">已知晓</button>
+    </div>
+  </div>
+
+  <!-- 存档弹层 -->
+  <div class="modal hidden" id="modal-save">
+    <div class="modal-card">
+      <div class="modal-tag">命运之印</div>
+      <p id="save-text"></p>
+      <button class="btn-primary" id="btn-save-close">好</button>
+    </div>
+  </div>
+
+  <!-- 命运档案 -->
+  <div class="modal hidden" id="modal-archive">
+    <div class="modal-card wide">
+      <div class="modal-tag">命运档案</div>
+      <div class="tab-row">
+        <button class="tab-btn active" data-tab="timeline">时间线</button>
+        <button class="tab-btn" data-tab="memory">记忆碎片</button>
+        <button class="tab-btn" data-tab="achieve">成就图鉴</button>
+        <button class="tab-btn" data-tab="dark">暗面档案</button>
+      </div>
+      <div id="archive-body" class="archive-body"></div>
+      <button class="btn-primary" id="btn-archive-close">好</button>
+    </div>
+  </div>
+
+  <!-- 设置 -->
+  <div class="modal hidden" id="modal-settings">
+    <div class="modal-card wide">
+      <div class="modal-tag">设置 · 尘世之物</div>
+      <div class="setting-row">
+        <span>打字速度</span>
+        <div class="chip-row" id="speed-row">
+          <button class="chip selectable" data-speed="slow">慢</button>
+          <button class="chip selectable selected" data-speed="normal">中</button>
+          <button class="chip selectable" data-speed="fast">快</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span>氛围音</span>
+        <button class="btn-ghost small" id="btn-sound-setting">开 / 关</button>
+      </div>
+      <div class="setting-row">
+        <span>自动存档</span>
+        <button class="btn-ghost small" id="btn-autosave-setting">开 / 关</button>
+      </div>
+      <div class="setting-row">
+        <span>存档导出 / 导入</span>
+        <textarea id="export-area" rows="3" placeholder="点「生成导出码」后复制；换设备时粘贴回来点「导入」"></textarea>
+        <div class="setting-btns">
+          <button class="btn-ghost small" id="btn-export">生成导出码</button>
+          <button class="btn-ghost small" id="btn-import">导入</button>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-settings-close">好</button>
+    </div>
+  </div>
+
+  <!-- 成就提示 -->
+  <div id="toasts" class="toasts"></div>
+
+  <button id="btn-sound" class="sound-toggle" title="氛围音">音</button>
+
+  <script src="js/names.js"></script>
+  <script src="js/geo.js"></script>
+  <script src="js/talents.js"></script>
+  <script src="js/content1.js"></script>
+  <script src="js/content2.js"></script>
+  <script src="js/content3.js"></script>
+  <script src="js/content4.js"></script>
+  <script src="js/content5.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
